@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GraySpace Strategic Warning Group (SWG)</title>
+  <meta name="description" content="GraySpace Strategic Warning Group (SWG) provides structured strategic warning briefings focused on escalation tripwires, proxy conflict dynamics, and forward-looking risk indicators." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#0f1620;
+      --panel2:#0c121b;
+      --text:#e7eef7;
+      --muted:#9fb0c2;
+      --line:#1e2a3a;
+      --accent:#b7c7dd;
+      --warn:#f4c95d;
+      --ok:#7dd3a3;
+      --danger:#ff6b6b;
+      --chip:#121b27;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 22px;
+      --max: 1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0; font-family: var(--sans); color:var(--text); background:
+      radial-gradient(1100px 600px at 15% -10%, rgba(183,199,221,.12), transparent 55%),
+      radial-gradient(900px 500px at 90% 0%, rgba(244,201,93,.08), transparent 50%),
+      radial-gradient(900px 600px at 40% 110%, rgba(125,211,163,.06), transparent 55%),
+      var(--bg);
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px);
+      background: rgba(11,15,20,.78);
+      border-bottom: 1px solid rgba(30,42,58,.7);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:16px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .mark{width:34px; height:34px; border-radius:10px; border:1px solid rgba(183,199,221,.35);
+      background: linear-gradient(145deg, rgba(183,199,221,.18), rgba(15,22,32,.2));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+      position:relative;
+    }
+    .mark:before{content:""; position:absolute; inset:8px; border-radius:8px;
+      border:1px solid rgba(183,199,221,.35);
+      background: radial-gradient(80px 30px at 20% 20%, rgba(183,199,221,.25), transparent 55%);
+    }
+    .brand-title{line-height:1.05}
+    .brand-title strong{display:block; font-size:14px; letter-spacing:.08em; text-transform:uppercase}
+    .brand-title span{display:block; color:var(--muted); font-size:12px; letter-spacing:.02em}
+
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:14px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+    nav a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:12px; border:1px solid transparent}
+    nav a:hover{color:var(--text); border-color: rgba(183,199,221,.18); background: rgba(15,22,32,.4)}
+
+    .cta{display:flex; gap:10px; align-items:center}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 12px; border-radius:14px;
+      font-size:13px; letter-spacing:.01em; border:1px solid rgba(183,199,221,.18);
+      background: rgba(15,22,32,.55);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+      cursor:pointer;
+    }
+    .btn:hover{border-color: rgba(183,199,221,.35); background: rgba(15,22,32,.72)}
+    .btn.primary{background: linear-gradient(145deg, rgba(183,199,221,.14), rgba(15,22,32,.62));}
+    .btn .dot{width:8px; height:8px; border-radius:50%; background: var(--warn); box-shadow:0 0 0 3px rgba(244,201,93,.15)}
+
+    .hero{padding:54px 0 26px}
+    .hero-grid{display:grid; grid-template-columns: 1.15fr .85fr; gap:22px; align-items:stretch}
+    .card{background: linear-gradient(180deg, rgba(15,22,32,.78), rgba(12,18,27,.74));
+      border:1px solid rgba(30,42,58,.8); border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+    .hero-left{padding:26px}
+    .kicker{font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase}
+    h1{margin:10px 0 12px; font-size:40px; line-height:1.05; letter-spacing:-.02em}
+    .sub{color:var(--muted); font-size:16px; line-height:1.5; max-width:58ch}
+    .pill-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+    .pill{border:1px solid rgba(30,42,58,.9); background: rgba(18,27,39,.65); color:var(--muted);
+      padding:8px 10px; border-radius:999px; font-size:12px; display:inline-flex; gap:8px; align-items:center;
+    }
+    .pill b{color:var(--text); font-weight:600}
+
+    .hero-right{padding:20px; display:flex; flex-direction:column; gap:12px}
+    .stat{padding:14px; border-radius:16px; background: rgba(10,16,24,.55); border:1px solid rgba(30,42,58,.8)}
+    .stat .label{color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+    .stat .value{font-size:22px; margin-top:6px}
+    .stat .mini{color:var(--muted); font-size:12px; margin-top:6px; line-height:1.4}
+    .status{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
+    .chip{font-family:var(--mono); font-size:11px; padding:7px 9px; border-radius:999px; border:1px solid rgba(30,42,58,.85); background: rgba(18,27,39,.55); color: var(--muted)}
+    .chip.warn{color: var(--warn); border-color: rgba(244,201,93,.25)}
+    .chip.ok{color: var(--ok); border-color: rgba(125,211,163,.22)}
+
+    section{padding:22px 0}
+    .section-title{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:12px}
+    .section-title h2{margin:0; font-size:20px; letter-spacing:-.01em}
+    .section-title p{margin:0; color:var(--muted); font-size:13px; line-height:1.4; max-width:70ch}
+
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
+
+    .panel{padding:18px; border-radius: var(--radius); border: 1px solid rgba(30,42,58,.85);
+      background: linear-gradient(180deg, rgba(15,22,32,.62), rgba(12,18,27,.55));
+    }
+    .panel h3{margin:0 0 8px; font-size:15px}
+    .panel p{margin:0; color:var(--muted); font-size:13px; line-height:1.5}
+    .panel ul{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13px; line-height:1.55}
+
+    .pricing{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    .price{position:relative}
+    .price .tag{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+    .price .amt{font-size:26px; margin:8px 0 10px}
+    .price .amt span{color:var(--muted); font-size:12px}
+    .price .badge{position:absolute; top:14px; right:14px; font-family:var(--mono);
+      font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:6px 9px; border-radius:999px;
+      border:1px solid rgba(244,201,93,.3); color: var(--warn); background: rgba(244,201,93,.08);
+    }
+
+    .calendar{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px}
+    .week{padding:14px; border-radius:16px; border:1px solid rgba(30,42,58,.85); background: rgba(12,18,27,.5)}
+    .week .wk{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase}
+    .week .ttl{margin:8px 0 6px; font-size:13px}
+    .week .dsc{margin:0; color:var(--muted); font-size:12px; line-height:1.4}
+
+    footer{padding:26px 0 40px; border-top:1px solid rgba(30,42,58,.8); margin-top:18px}
+    .foot{display:flex; gap:18px; flex-wrap:wrap; justify-content:space-between; align-items:flex-start}
+    .foot p{margin:0; color:var(--muted); font-size:12px; line-height:1.5}
+    .foot .links{display:flex; gap:10px; flex-wrap:wrap}
+
+    input, textarea, select{
+      padding:12px 12px; border-radius:14px; border:1px solid rgba(30,42,58,.9);
+      background: rgba(8,12,18,.55); color:var(--text);
+      width:100%;
+    }
+    textarea{resize:vertical}
+
+    @media (max-width: 940px){
+      .hero-grid{grid-template-columns: 1fr;}
+      h1{font-size:34px}
+      .pricing{grid-template-columns: 1fr;}
+      .calendar{grid-template-columns: repeat(2, 1fr);}
+      .grid3{grid-template-columns: 1fr;}
+      .grid2{grid-template-columns: 1fr;}
+    }
+    @media (max-width: 520px){
+      nav ul{gap:6px}
+      nav a{padding:7px 8px}
+      .calendar{grid-template-columns: 1fr;}
+      h1{font-size:30px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <div class="mark" aria-hidden="true"></div>
+          <div class="brand-title">
+            <strong>GraySpace</strong>
+            <span>Strategic Warning Group (SWG)</span>
+          </div>
+        </div>
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#retainers">Retainers</a></li>
+            <li><a href="#calendar">Calendar</a></li>
+            <li><a href="#media">Media</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="cta">
+          <a class="btn" href="#contact"><span class="dot" aria-hidden="true"></span>Request Briefing</a>
+          <a class="btn primary" href="#retainers">View Retainers</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero" id="top">
+        <div class="hero-grid">
+          <div class="card hero-left">
+            <div class="kicker">Threats • Warnings • Indicators</div>
+            <h1>Strategic warning briefs for decision-makers.</h1>
+            <p class="sub">
+              GraySpace Strategic Warning Group (SWG) delivers structured early-warning assessments focused on
+              escalation tripwires, proxy dynamics, and observable indicators across key global flashpoints.
+            </p>
+            <div class="pill-row" aria-label="Focus areas">
+              <div class="pill"><b>Corporate</b> Security & Risk</div>
+              <div class="pill"><b>Investment</b> Geopolitical Risk</div>
+              <div class="pill"><b>Media</b> Producer Support</div>
+              <div class="pill"><b>Horizon</b> 30–90 days</div>
+              <div class="pill"><b>Method</b> TWI Framework</div>
+            </div>
+            <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap">
+              <a class="btn primary" href="#contact">Engage GraySpace SWG</a>
+              <a class="btn" href="#services">Capabilities</a>
+              <a class="btn" href="#retainers">Retainer Packages</a>
+            </div>
+          </div>
+
+          <div class="card hero-right">
+            <div class="stat">
+              <div class="label">Operating Model</div>
+              <div class="value">Structured Warning</div>
+              <div class="mini">Tactical-to-strategic assessments built for executive consumption.</div>
+              <div class="status">
+                <span class="chip ok">Key Judgments</span>
+                <span class="chip warn">Tripwires</span>
+                <span class="chip">Indicator Matrix</span>
+              </div>
+            </div>
+            <div class="stat">
+              <div class="label">Deliverables</div>
+              <div class="value">Briefs • Dashboards • Memos</div>
+              <div class="mini">Weekly flashpoint briefs, executive watchlists, and rapid response crisis memoranda.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Engagement</div>
+              <div class="value">Retainers & Briefings</div>
+              <div class="mini">Tailored to client exposure, sector risk, and decision timelines.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="section-title">
+          <h2>Capabilities</h2>
+          <p>SWG delivers disciplined, open-source analytical products designed to support operational decisions—without reactive news churn.</p>
+        </div>
+
+        <div class="grid3">
+          <div class="panel">
+            <h3>Executive Flashpoint Briefings</h3>
+            <p>Client-specific briefings focused on escalation pathways and operational implications.</p>
+            <ul>
+              <li>30–60 minute private session</li>
+              <li>Key judgment + confidence</li>
+              <li>Indicator watchlist tailored to exposure</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Strategic Warning Retainers</h3>
+            <p>Ongoing early warning support for leadership teams across security and investment risk functions.</p>
+            <ul>
+              <li>Monthly / bi-weekly / weekly briefs</li>
+              <li>Indicator dashboard (30–90 day horizon)</li>
+              <li>Escalation alerting during crisis windows</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Media & Producer Support</h3>
+            <p>Structured background and rapid context for broadcast, podcast, and documentary workflows.</p>
+            <ul>
+              <li>Pre-hit briefing notes</li>
+              <li>Clear framing: Threat → Warning → Indicators</li>
+              <li>Fast-turn updates when conditions shift</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="retainers">
+        <div class="section-title">
+          <h2>Tiered Retainers</h2>
+          <p>Packages are adaptable to region, sector, and operational tempo. Pricing below reflects standard baselines.</p>
+        </div>
+
+        <div class="pricing">
+          <div class="panel price">
+            <div class="tag">Tier I — Monitoring & Early Warning</div>
+            <div class="amt">$5,000 <span>/ month</span></div>
+            <ul>
+              <li>Monthly strategic warning brief (4–6 pages)</li>
+              <li>Monthly indicator dashboard</li>
+              <li>One executive briefing call / month</li>
+            </ul>
+          </div>
+
+          <div class="panel price">
+            <div class="badge">Most Requested</div>
+            <div class="tag">Tier II — Strategic Advisory</div>
+            <div class="amt">$10,000 <span>/ month</span></div>
+            <ul>
+              <li>Bi-weekly flashpoint briefs</li>
+              <li>Priority escalation alerts & tripwire updates</li>
+              <li>Two executive briefing calls / month</li>
+            </ul>
+          </div>
+
+          <div class="panel price">
+            <div class="tag">Tier III — Premium Rapid Response</div>
+            <div class="amt">$15,000+ <span>/ month</span></div>
+            <ul>
+              <li>Weekly tailored briefs</li>
+              <li>Rapid response crisis memoranda (24–48h)</li>
+              <li>Advisory access during escalation windows</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:14px">
+          <h3>Engagement Notes</h3>
+          <p>
+            Retainers are tailored to client exposure and decision-support needs. Deliverables are open-source analytical products for informational purposes,
+            not operational direction or classified intelligence.
+          </p>
+        </div>
+      </section>
+
+      <section id="calendar">
+        <div class="section-title">
+          <h2>8-Week Flashpoint Calendar</h2>
+          <p>Sample weekly cadence for GraySpace TWI briefings: Threat drivers, warning scenarios, and 30–90 day indicator watchlists.</p>
+        </div>
+
+        <div class="calendar">
+          <div class="week"><div class="wk">Week 1</div><div class="ttl">Al-Qaim–Bukamal Escalation Seam</div><p class="dsc">Proxy logistics convergence; strike–retaliation tripwires.</p></div>
+          <div class="week"><div class="wk">Week 2</div><div class="ttl">ISIS Tripwire Watch — Western Anbar</div><p class="dsc">Attack tempo indicators; desert maneuver space.</p></div>
+          <div class="week"><div class="wk">Week 3</div><div class="ttl">Militia Consolidation in Iraq</div><p class="dsc">Entrenchment indicators; institutional leverage points.</p></div>
+          <div class="week"><div class="wk">Week 4</div><div class="ttl">Syria Strike–Retaliation Cycle Risk</div><p class="dsc">Escalation ladder; spillover pathways into Iraq.</p></div>
+          <div class="week"><div class="wk">Week 5</div><div class="ttl">Red Sea Proxy Maritime Escalation</div><p class="dsc">Maritime interdiction; regional spillover risk.</p></div>
+          <div class="week"><div class="wk">Week 6</div><div class="ttl">Lebanon Front Warning Indicators</div><p class="dsc">Deterrence thresholds; escalation signaling.</p></div>
+          <div class="week"><div class="wk">Week 7</div><div class="ttl">Turkey–PKK Cross-Border Nodes</div><p class="dsc">Operational triggers; regional security impacts.</p></div>
+          <div class="week"><div class="wk">Week 8</div><div class="ttl">Gulf Facilitation Corridors</div><p class="dsc">Finance/logistics corridors shaping conflict ecosystems.</p></div>
+        </div>
+      </section>
+
+      <section id="media">
+        <div class="section-title">
+          <h2>Media & Producer Inquiries</h2>
+          <p>Fast-turn context, structured briefing notes, and on-air analysis using the GraySpace TWI framework.</p>
+        </div>
+        <div class="grid2">
+          <div class="panel">
+            <h3>Producer Support</h3>
+            <ul>
+              <li>Pre-hit background bullets (Threat / Warning / Indicators)</li>
+              <li>Source-grounded escalation framing</li>
+              <li>Rapid updates as conditions change</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>On-Air / Podcast Availability</h3>
+            <p>Provide a brief note on topic, timing, and audience. SWG can deliver a short pre-hit memo on request.</p>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+              <a class="btn" href="#contact">Request Availability</a>
+              <a class="btn" href="#retainers">Corporate Retainers</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Use the form to request a briefing, retainer discussion, or media availability.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="panel">
+            <h3>Engagement Request</h3>
+            <p style="margin-bottom:12px">Email is the fastest path for corporate and producer workflows.</p>
+            <form action="mailto:mike@grayspaceswg.com" method="post" enctype="text/plain">
+              <div style="display:grid; gap:10px">
+                <input name="Name" placeholder="Name" required />
+                <input name="Organization" placeholder="Organization" />
+                <input name="Email" type="email" placeholder="Email" required />
+                <select name="Inquiry Type">
+                  <option>Executive Briefing</option>
+                  <option>Retainer (Tier I)</option>
+                  <option>Retainer (Tier II)</option>
+                  <option>Retainer (Tier III)</option>
+                  <option>Rapid Response Memo</option>
+                  <option>Media / Producer Inquiry</option>
+                </select>
+                <textarea name="Notes" placeholder="Briefly describe your topic, region, timeline, and decision needs." rows="5"></textarea>
+                <button class="btn primary" type="submit" style="justify-content:center">Send</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel">
+            <h3>Direct Channels</h3>
+            <p><b>Email:</b> <a href="mailto:mike@grayspaceswg.com">mike@grayspaceswg.com</a></p>
+            <p><b>Website:</b> grayspaceswg.com</p>
+            <p><b>Booking:</b> Add Calendly / scheduling link (optional)</p>
+            <div class="panel" style="margin-top:12px; background: rgba(10,16,24,.55)">
+              <h3>Disclaimer</h3>
+              <p>GraySpace Strategic Warning Group (SWG) provides open-source analytical assessments for informational purposes. Products do not constitute operational directives or classified intelligence.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="foot">
+          <p>
+            <b>GraySpace Strategic Warning Group (SWG)</b><br/>
+            Threats • Warnings • Indicators<br/>
+            © <span id="year"></span> GraySpace SWG
+          </p>
+          <div class="links">
+            <a class="btn" href="#top">Top</a>
+            <a class="btn" href="#services">Capabilities</a>
+            <a class="btn" href="#contact">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
