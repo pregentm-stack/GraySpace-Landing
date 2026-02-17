@@ -426,7 +426,46 @@
           <div class="panel">
             <h3>Engagement Request</h3>
             <p style="margin-bottom:12px">Email is the fastest path for corporate and producer workflows.</p>
-            <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html">
+            <form 
+  name="contact" 
+  method="POST" 
+  data-netlify="true" 
+  data-netlify-honeypot="bot-field"
+  action="/thank-you.html">
+
+  <input type="hidden" name="form-name" value="contact" />
+
+  <p style="display:none">
+    <label>Don’t fill this out if you’re human: 
+      <input name="bot-field" />
+    </label>
+  </p>
+
+  <div style="display:grid; gap:10px">
+    <input name="Name" placeholder="Name" required />
+    <input name="Organization" placeholder="Organization" />
+    <input name="Email" type="email" placeholder="Email" required />
+
+    <select name="Inquiry Type">
+      <option>Executive Briefing</option>
+      <option>Retainer (Tier I)</option>
+      <option>Retainer (Tier II)</option>
+      <option>Retainer (Tier III)</option>
+      <option>Rapid Response Memo</option>
+      <option>Media / Producer Inquiry</option>
+    </select>
+
+    <textarea 
+      name="Notes" 
+      placeholder="Briefly describe your topic, region, timeline, and decision needs." 
+      rows="5"></textarea>
+
+    <button class="btn primary" type="submit" style="justify-content:center">
+      Send
+    </button>
+  </div>
+</form>
+
               <input type="hidden" name="form-name" value="contact" />
               <p style="display:none">
                 <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
