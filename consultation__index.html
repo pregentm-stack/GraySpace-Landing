@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book a Consultation | GraySpace SWG</title>
+
+  <style>
+    :root{
+      --bg:#0b0f14; --text:#e7eef7; --muted:#9fb0c2; --warn:#f4c95d;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px; --radius2: 22px; --max: 1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family: var(--sans); color:var(--text); background:
+      radial-gradient(1100px 600px at 15% -10%, rgba(183,199,221,.12), transparent 55%),
+      radial-gradient(900px 500px at 90% 0%, rgba(244,201,93,.08), transparent 50%),
+      var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px);
+      background: rgba(11,15,20,.78); border-bottom: 1px solid rgba(30,42,58,.7);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:16px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:38px; height:38px; border-radius:10px; object-fit:contain; border:1px solid rgba(183,199,221,.25); background: rgba(15,22,32,.35);}
+    .brand-title strong{display:block; font-size:14px; letter-spacing:.08em; text-transform:uppercase}
+    .brand-title span{display:block; color:var(--muted); font-size:12px}
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:14px; flex-wrap:wrap}
+    nav a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:12px}
+    nav a:hover{color:var(--text); background: rgba(15,22,32,.4)}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 12px; border-radius:14px;
+      font-size:13px; border:1px solid rgba(183,199,221,.18); background: rgba(15,22,32,.55);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    }
+    .btn.primary{background: linear-gradient(145deg, rgba(183,199,221,.14), rgba(15,22,32,.62));}
+    .btn .dot{width:8px; height:8px; border-radius:50%; background: var(--warn); box-shadow:0 0 0 3px rgba(244,201,93,.15)}
+    .card{margin:28px 0; padding:26px; border-radius: var(--radius2);
+      border:1px solid rgba(30,42,58,.8);
+      background: linear-gradient(180deg, rgba(15,22,32,.78), rgba(12,18,27,.74));
+      box-shadow: var(--shadow);
+    }
+    .kicker{font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase}
+    h1{margin:10px 0 10px; font-size:34px; letter-spacing:-.02em}
+    p{color:var(--muted); line-height:1.5}
+    .panel{padding:18px; border-radius: var(--radius); border: 1px solid rgba(30,42,58,.85);
+      background: linear-gradient(180deg, rgba(15,22,32,.62), rgba(12,18,27,.55));
+    }
+    footer{padding:26px 0 40px; border-top:1px solid rgba(30,42,58,.8); margin-top:18px}
+    .foot{display:flex; gap:18px; flex-wrap:wrap; justify-content:space-between; align-items:flex-start}
+    .foot p{margin:0; color:var(--muted); font-size:12px; line-height:1.5}
+    .foot .links{display:flex; gap:10px; flex-wrap:wrap}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <img class="logo" src="/assets/logo.png" alt="GraySpace SWG Logo" />
+          <div class="brand-title">
+            <strong>GraySpace</strong>
+            <span>Strategic Warning Group (SWG)</span>
+          </div>
+        </div>
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="/request-services/">Request Services</a></li>
+            <li><a href="/briefing/">Briefing</a></li>
+            <li><a href="/retainer/">Retainer</a></li>
+            <li><a href="/">Home</a></li>
+          </ul>
+        </nav>
+        <a class="btn primary" href="/request-services/"><span class="dot"></span>Engage SWG</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="card">
+      <div class="kicker">Scheduling</div>
+      <h1>Book a Consultation</h1>
+      <p>
+        Use the scheduling link below to book a short introductory call to discuss fit, priorities,
+        and next steps.
+      </p>
+
+      <div class="panel" style="margin-top:14px">
+        <p style="margin-top:0">
+          <a class="btn primary" href="https://calendly.com/grayspaceswg/consultation" target="_blank" rel="noopener">
+            Book via Calendly
+          </a>
+        </p>
+
+        <p style="margin-bottom:0">
+          Prefer email? <a href="mailto:engage@grayspaceswg.com"><b>engage@grayspaceswg.com</b></a>
+        </p>
+      </div>
+
+      <div class="panel" style="margin-top:14px">
+        <h3>Scope Note</h3>
+        <p>Open-source analytical products for informational decision support.</p>
+      </div>
+    </div>
+
+    <footer>
+      <div class="foot">
+        <p>
+          <b>GraySpace Strategic Warning Group (SWG)</b><br/>
+          Threats • Warnings • Indicators<br/>
+          © <span id="year"></span> GraySpace SWG
+        </p>
+        <div class="links">
+          <a class="btn" href="/request-services/">Request Services</a>
+          <a class="btn" href="/">Home</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
